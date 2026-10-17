@@ -89,7 +89,6 @@ def shortest_path(source, target):
     that connect the source to the target.
     If no possible path exists, returns None.
     """
-
     if source == target:
         return []
 
@@ -104,11 +103,9 @@ def shortest_path(source, target):
 
         if node.state == target:
             path = []
-
             while node.parent is not None:
                 path.append((node.action, node.state))
                 node = node.parent
-
             path.reverse()
             return path
 
@@ -116,29 +113,11 @@ def shortest_path(source, target):
 
         for movie_id, person_id in neighbors_for_person(node.state):
             if person_id not in explored and not frontier.contains_state(person_id):
-                child = Node(
-                    state=person_id,
-                    parent=node,
-                    action=movie_id
-                )
-
-                if person_id == target:
-                    path = [(child.action, child.state)]
-
-                    while child.parent is not None:
-                        child = child.parent
-
-                        if child.parent is not None:
-                            path.append((child.action, child.state))
-
-                    path.reverse()
-                    return path
-
+                child = Node(state=person_id, parent=node, action=movie_id)
                 frontier.add(child)
 
     return None
-
-
+    
 def person_id_for_name(name):
     """
     Returns the IMDB id for a person's name,
